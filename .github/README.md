@@ -1,11 +1,3 @@
-![Screenshot](screenshot.webp)
-
-### scraping
-
-```sh
-py scraping.py
-```
-
 ### python packages
 
 ```sh
