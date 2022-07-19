@@ -1,6 +1,5 @@
 import json
 from os.path import exists
-from progressbar import AnimatedMarker, ProgressBar
 
 
 def load(file_name):
