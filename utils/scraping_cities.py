@@ -22,14 +22,16 @@ def get():
                     city_name = item.text
                     city_url = item.get("href")
                     if city_name.__len__() > 1:  # TODO: check if it's not a pagination link
-                        cities |= {city_name.strip(' '): city_url}
+                        cities |= {city_name.strip(
+                            ' '): city_url + "?page="}
+        # TODO: make it a function and put it in utils.data
         jsonString = json.dumps(cities, indent=4)
         jsonFile = open('data/cities.json', 'w')
         jsonFile.write(jsonString)
         jsonFile.close()
         print("→ " + str(cities.__len__()) +
-              " cities saved in data/cities.json ...")
-        return cities
+              " cities saved in data/cities.json.")
+        return data.load("data/cities.json")
     else:
         print("→ data/cities.json is already created.")
         return data.load("data/cities.json")
