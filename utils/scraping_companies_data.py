@@ -29,35 +29,35 @@ def get(companies):
                     for item in li:
                         if "Numéro: " in item.text:
                             companies_data[city][company] |= {
-                                "Numéro d'entreprise": item.text.replace("Numéro: ", "")}
+                                "Numéro d'entreprise": item.text.replace("Numéro: ", "").strip(' ')}
                         if "Numéro de TVA  " in item.text:
                             m = re.search(r'(BE)?0[0-9]{9}', item.text)
                             if m:
                                 companies_data[city][company] |= {
-                                    "Numéro de TVA": m.group()}
+                                    "Numéro de TVA": m.group().strip(' ')}
                         if "Type d'entité: " in item.text:
                             companies_data[city][company] |= {
-                                "Type d'entité": item.text.replace("Type d'entité: ", "")}
+                                "Type d'entité": item.text.replace("Type d'entité: ", "").strip(' ')}
                         if "Situation: " in item.text:
                             companies_data[city][company] |= {
-                                "Situation": item.text.replace("Situation: ", "")}
+                                "Situation": item.text.replace("Situation: ", "").strip(' ')}
                         if "Capital: " in item.text:
                             companies_data[city][company] |= {
-                                "Capital": item.text.replace("Capital: ", "")}
+                                "Capital": item.text.replace("Capital: ", "").strip(' ')}
                         if "Forme juridique: " in item.text:
                             m = re.search(
                                 'Forme juridique: (.+?) Depuis', item.text)
                             if m:
                                 companies_data[city][company] |= {
-                                    "Forme juridique": m.group(1)}
+                                    "Forme juridique": m.group(1).strip(' ')}
                         if "Sécurité sociale  " in item.text:
                             m = re.search(r'\d\d\d\d\d\d\d-\d\d', item.text)
                             if m:
                                 companies_data[city][company] |= {
-                                    "Sécurité sociale": m.group()}
+                                    "Sécurité sociale": m.group().strip(' ')}
                         if "Effectif: " in item.text:
                             companies_data[city][company] |= {
-                                "Effectif": item.text.replace("Effectif: ", "")}
+                                "Effectif": item.text.replace("Effectif: ", "").strip(' ')}
                         if item.find("i", class_="icon-direction mr-1"):
                             i_parent = item.find(
                                 "i", class_="icon-direction mr-1").parent
@@ -65,13 +65,13 @@ def get(companies):
                             for i_child in i_parent:
                                 address += i_child.text
                             companies_data[city][company] |= {
-                                "Adresse": address}
+                                "Adresse": address.replace("Belgique", "").strip(' ')}
                         if "Téléphone: " in item.text:
                             companies_data[city][company] |= {
-                                "Téléphone": item.text.replace("Téléphone: ", "")}
+                                "Téléphone": item.text.replace("Téléphone: ", "").strip(' ')}
                         if "Fax: " in item.text:
                             companies_data[city][company] |= {
-                                "Fax": item.text.replace("Fax: ", "")}
+                                "Fax": item.text.replace("Fax: ", "").strip(' ')}
                 for item in second_card_parent:
                     li = item.find_all("li")
                     companies_data[city][company]["Equipe"] = {}
@@ -80,8 +80,8 @@ def get(companies):
                             r'( Depuis le )[0-9]{2}(-)[0-9]{2}(-)[0-9]{4}', item.text)
                         if m:
                             i = item.text.split(m.group())
-                            name = i[0].lstrip(' ')
-                            position = i[1]
+                            name = i[0].strip(' ')
+                            position = i[1].strip(' ')
                             companies_data[city][company]["Equipe"] |= {
                                 name: position}
         # TODO: make it a function and put it in utils.data
