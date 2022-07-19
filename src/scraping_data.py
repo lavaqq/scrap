@@ -2,16 +2,17 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
-import utils.data as data
+import src.utils as utils
 from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
-import pprint
 
 
 def get(companies):
-    if not exists("data/companies-data.json"):
+    if not exists("data/data.json"):
         companies_data = {}
-        for city in companies:
+        pbar = ProgressBar(
+            widgets=['→ Retrieve all data companies: ', AnimatedMarker(['.', '..', '...'])])
+        for city in pbar(companies):
             companies_data[city] = {}
             for company in companies[city]:
                 companies_data[city][company] = {}
@@ -85,9 +86,9 @@ def get(companies):
                             companies_data[city][company]["Equipe"] |= {
                                 name: position}
         # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(companies_data, indent=4)
-        jsonFile = open('data/companies-data.json', 'w')
+        jsonString = json.dumps(companies_data, indent=2)
+        jsonFile = open('data/data.json', 'w')
         jsonFile.write(jsonString)
         jsonFile.close()
     else:
-        print("→ data/companies-data.json is already created.")
+        print("→ data/data.json is already created.")

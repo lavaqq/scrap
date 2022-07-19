@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import utils.data as data
+import src.utils as utils
 from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
 
@@ -31,13 +31,13 @@ def get(cities):
                             companies[city] |= {compagny_name: href}
             counter += companies[city].__len__()
         # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(companies, indent=4)
+        jsonString = json.dumps(companies, indent=2)
         jsonFile = open('data/companies.json', 'w')
         jsonFile.write(jsonString)
         jsonFile.close()
         print("→ " + str(counter) +
               " companies saved in data/companies.json.")
-        return data.load("data/companies.json")
+        return utils.load("data/companies.json")
     else:
         print("→ data/companies.json is already created.")
-        return data.load("data/companies.json")
+        return utils.load("data/companies.json")

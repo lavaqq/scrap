@@ -1,16 +1,19 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
-import utils.data as data
+import src.utils as utils
 
 
 def get():
     if not exists("data/cities.json"):
         print("→ data/cities.json does not exist, creating it ...")
         cities = {}
+        pbar = ProgressBar(
+            widgets=['→ Retrieve all cities: ', AnimatedMarker(['.', '..', '...'])])
         base_url = "https://be.welipro.com/v?page="
-        for i in range(1, 1001):
+        for i in pbar(range(1, 1001)):
             url = base_url + str(i)
             req = requests.get(url)
             res = BeautifulSoup(req.text, 'html.parser')
@@ -25,13 +28,13 @@ def get():
                         cities |= {city_name.strip(
                             ' '): city_url + "?page="}
         # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(cities, indent=4)
+        jsonString = json.dumps(cities, indent=2)
         jsonFile = open('data/cities.json', 'w')
         jsonFile.write(jsonString)
         jsonFile.close()
         print("→ " + str(cities.__len__()) +
               " cities saved in data/cities.json.")
-        return data.load("data/cities.json")
+        return utils.load("data/cities.json")
     else:
         print("→ data/cities.json is already created.")
-        return data.load("data/cities.json")
+        return utils.load("data/cities.json")
