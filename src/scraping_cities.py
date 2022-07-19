@@ -27,11 +27,7 @@ def get():
                     if city_name.__len__() > 1:  # TODO: check if it's not a pagination link
                         cities |= {city_name.strip(
                             ' '): city_url + "?page="}
-        # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(cities, indent=2)
-        jsonFile = open('data/cities.json', 'w')
-        jsonFile.write(jsonString)
-        jsonFile.close()
+        utils.write("data/cities.json", cities)
         print("→ " + str(cities.__len__()) +
               " cities saved in data/cities.json.")
         return utils.load("data/cities.json")

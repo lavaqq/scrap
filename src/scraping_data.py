@@ -85,10 +85,6 @@ def get(companies):
                             position = i[1].strip(' ')
                             companies_data[city][company]["Equipe"] |= {
                                 name: position}
-        # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(companies_data, indent=2)
-        jsonFile = open('data/data.json', 'w')
-        jsonFile.write(jsonString)
-        jsonFile.close()
+        utils.write("data/data.json", companies_data)
     else:
         print("→ data/data.json is already created.")

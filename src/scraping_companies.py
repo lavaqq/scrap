@@ -30,11 +30,7 @@ def get(cities):
                             compagny_name = anchor.text
                             companies[city] |= {compagny_name: href}
             counter += companies[city].__len__()
-        # TODO: make it a function and put it in utils.data
-        jsonString = json.dumps(companies, indent=2)
-        jsonFile = open('data/companies.json', 'w')
-        jsonFile.write(jsonString)
-        jsonFile.close()
+        utils.write("data/companies.json", companies)
         print("→ " + str(counter) +
               " companies saved in data/companies.json.")
         return utils.load("data/companies.json")

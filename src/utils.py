@@ -10,3 +10,14 @@ def load(file_name):
     else:
         data = {}
     return data
+
+
+def write(file_name, data):
+    with open(file_name, 'w') as f:
+        json.dump(data, f, indent=2)
+
+
+# jsonString = json.dumps(companies_data, indent=2)
+# jsonFile = open('data/data.json', 'w')
+# jsonFile.write(jsonString)
+# jsonFile.close()
