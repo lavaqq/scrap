@@ -1,9 +1,8 @@
 import requests
-import json
+import src.utils as utils
 from bs4 import BeautifulSoup
 from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
-import src.utils as utils
 
 
 def get():
@@ -24,7 +23,7 @@ def get():
                 for item in list.find_all("a"):
                     city_name = item.text
                     city_url = item.get("href")
-                    if city_name.__len__() > 1:  # TODO: check if it's not a pagination link
+                    if city_name.__len__() > 1:
                         cities |= {city_name.strip(
                             ' '): city_url + "?page="}
         utils.write("data/cities.json", cities)

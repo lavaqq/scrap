@@ -1,8 +1,7 @@
 import requests
-from bs4 import BeautifulSoup
 import re
-import json
 import src.utils as utils
+from bs4 import BeautifulSoup
 from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
 
