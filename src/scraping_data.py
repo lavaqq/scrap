@@ -1,18 +1,14 @@
-from typing import Counter
 import requests
 import re
 import src.utils as utils
 from bs4 import BeautifulSoup
-from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
 
 
 def get(companies):
     if not exists("data/data.json"):
         companies_data = {}
-        pbar = ProgressBar(
-            widgets=['→ Retrieve all data companies: ', AnimatedMarker(['.', '..', '...'])])
-        for city in pbar(companies):
+        for city in companies:
             companies_data[city] = {}
             for company in companies[city]:
                 companies_data[city][company] = {}

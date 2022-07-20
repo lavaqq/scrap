@@ -1,20 +1,17 @@
 import requests
 import src.utils as utils
 from bs4 import BeautifulSoup
-from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
 
 
 def get(cities):
     if not exists("data/companies.json"):
         companies = {}
-        pbar = ProgressBar(
-            widgets=['→ Retrieve all companies: ', AnimatedMarker(['.', '..', '...'])])
         for city in cities:
             companies[city] = {}
             counter = 0
             base_url = cities[city]
-            for i in pbar(range(1, 1001)):
+            for i in range(1, 1001):
                 url = base_url + str(i)
                 req = requests.get(url)
                 res = BeautifulSoup(req.text, 'html.parser')

@@ -1,7 +1,6 @@
 import requests
 import src.utils as utils
 from bs4 import BeautifulSoup
-from progressbar import AnimatedMarker, ProgressBar
 from os.path import exists
 
 
@@ -9,10 +8,8 @@ def get():
     if not exists("data/cities.json"):
         print("→ data/cities.json does not exist, creating it ...")
         cities = {}
-        pbar = ProgressBar(
-            widgets=['→ Retrieve all cities: ', AnimatedMarker(['.', '..', '...'])])
         base_url = "https://be.welipro.com/v?page="
-        for i in pbar(range(1, 1001)):
+        for i in range(1, 1001):
             url = base_url + str(i)
             req = requests.get(url)
             res = BeautifulSoup(req.text, 'html.parser')
