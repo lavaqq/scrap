@@ -7,6 +7,7 @@ from os.path import exists
 
 def get(companies):
     if not exists("data/data.json"):
+        print("→ data/data.json does not exist, creating it ...")
         companies_data = {}
         for city in companies:
             companies_data[city] = {}
