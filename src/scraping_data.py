@@ -1,3 +1,4 @@
+from typing import Counter
 import requests
 import re
 import src.utils as utils
@@ -85,5 +86,6 @@ def get(companies):
                             companies_data[city][company]["Equipe"] |= {
                                 name: position}
         utils.write("data/data.json", companies_data)
+        print("→ All companies data hes been retrieved.")
     else:
         print("→ data/data.json is already created.")
